@@ -6,7 +6,6 @@ import {
   Copy,
   Check,
   ArrowUpRight,
-  Mic,
   Code2,
 } from 'lucide-react';
 import { PROFILE } from '../data/portfolioData';
@@ -24,7 +23,7 @@ export const Hero: React.FC = () => {
   return (
     <section
       id="top"
-      className="relative pt-12 pb-20 sm:pt-20 sm:pb-28 bg-dot-grid border-b border-zinc-200/80 overflow-hidden"
+      className="relative pt-4 pb-16 sm:pt-6 sm:pb-24 bg-dot-grid border-b border-zinc-200/80 overflow-hidden"
     >
       <div className="max-w-5xl mx-auto px-6">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
@@ -35,7 +34,7 @@ export const Hero: React.FC = () => {
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4 }}
-              className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-brand-primary-soft border border-brand-primary-border text-brand-primary-text text-xs font-semibold mb-7 shadow-2xs"
+              className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-brand-primary-soft border border-brand-primary-border text-brand-primary-text text-xs font-semibold mb-4 sm:mb-5 shadow-2xs"
             >
               <span className="w-2.5 h-2.5 rounded-full bg-brand-primary ring-2 ring-brand-primary/40 animate-pulse" />
               <span>Available for Software Engineering Roles · MCA @ IIT Patna</span>
@@ -185,14 +184,6 @@ export const Hero: React.FC = () => {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent" />
 
-                {/* Top-Right Pill in the curve sweep */}
-                <div className="absolute top-4 right-5 z-10">
-                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brand-primary text-brand-dark text-[11px] font-mono-code font-bold border border-brand-dark shadow-xs">
-                    <span className="w-1.5 h-1.5 rounded-full bg-brand-dark animate-pulse" />
-                    <span>IIT Patna · MCA</span>
-                  </span>
-                </div>
-
                 {/* Bottom Status Badge */}
                 <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between text-white z-10">
                   <span className="inline-flex items-center gap-1.5 text-xs font-mono-code bg-black/75 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-brand-primary/40 text-white">
@@ -202,19 +193,14 @@ export const Hero: React.FC = () => {
                 </div>
               </div>
 
-              {/* Overlapping Secondary Card: Pitching at KPH Hackathon '26 */}
-              <div className="mt-4 sm:mt-0 sm:absolute sm:-bottom-6 sm:-left-8 sm:w-68 rounded-2xl rounded-tl-[2rem] rounded-br-[2rem] overflow-hidden border-[3px] border-brand-dark shadow-[6px_6px_0px_0px_#facc15] bg-brand-dark group/hackathon z-20">
+              {/* Overlapping Secondary Card */}
+              <div className="mt-4 sm:mt-0 sm:absolute sm:-bottom-6 sm:-left-8 sm:w-68 rounded-2xl rounded-tl-[2rem] rounded-br-[2rem] overflow-hidden border-[3px] border-brand-dark shadow-[6px_6px_0px_0px_#facc15] bg-zinc-900 group/hackathon z-20">
                 <div className="aspect-[16/10] overflow-hidden relative">
                   <img
                     src="/images/nasif-hackathon.jpg"
-                    alt="Muhammad Nasif presenting at KPH Hackathon '26"
+                    alt="Muhammad Nasif presenting at hackathon"
                     className="w-full h-full object-cover object-top group-hover/hackathon:scale-105 transition-transform duration-500"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent" />
-                  <div className="absolute bottom-2.5 left-3 right-3 flex items-center gap-1.5 text-white text-[11px] font-mono-code">
-                    <Mic className="w-3.5 h-3.5 text-brand-primary shrink-0" />
-                    <span className="truncate font-semibold">Pitching @ KPH Hackathon ’26</span>
-                  </div>
                 </div>
               </div>
             </div>

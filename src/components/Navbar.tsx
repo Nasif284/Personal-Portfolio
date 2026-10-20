@@ -19,7 +19,7 @@ export const Navbar: React.FC = () => {
           : 'bg-white border-b border-transparent'
       }`}
     >
-      <div className="max-w-5xl mx-auto px-6 h-20 flex items-center justify-between">
+      <div className="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
         {/* Brand with Portrait Avatar */}
         <a
           href="#top"
