@@ -23,7 +23,7 @@ export const Hero: React.FC = () => {
   return (
     <section
       id="top"
-      className="relative pt-4 pb-16 sm:pt-6 sm:pb-24 bg-dot-grid border-b border-zinc-200/80 overflow-hidden"
+      className="relative pt-8 pb-16 sm:pt-12 sm:pb-24 bg-dot-grid border-b border-zinc-200/80 overflow-hidden"
     >
       <div className="max-w-5xl mx-auto px-6">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
