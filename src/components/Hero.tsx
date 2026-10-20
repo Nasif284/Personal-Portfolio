@@ -73,83 +73,76 @@ export const Hero: React.FC = () => {
               .
             </motion.p>
 
-            {/* Primary CTA Cluster */}
+            {/* Action & Connect Cluster - Clean 2-Row Balanced Layout */}
             <motion.div
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.45, delay: 0.15 }}
-              className="mt-8 flex flex-wrap items-center gap-3"
+              className="mt-8 flex flex-col gap-3.5"
             >
-              <a
-                href={PROFILE.resumeUrl}
-                download="Muhammad_Nasif_Resume.pdf"
-                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-brand-primary text-brand-dark font-semibold text-sm shadow-sm hover:bg-brand-primary-hover hover:scale-[1.02] transition-all cursor-pointer"
-              >
-                <Download className="w-4 h-4" />
-                <span>Download Resume</span>
-              </a>
+              {/* Row 1: Primary Portfolio Actions */}
+              <div className="flex flex-wrap items-center gap-3">
+                <a
+                  href={PROFILE.resumeUrl}
+                  download="Muhammad_Nasif_Resume.pdf"
+                  className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-brand-primary text-brand-dark font-semibold text-sm shadow-2xs hover:bg-brand-primary-hover hover:scale-[1.02] border border-brand-primary-border transition-all cursor-pointer"
+                >
+                  <Download className="w-4 h-4" />
+                  <span>Download Resume</span>
+                </a>
 
-              <a
-                href="#work"
-                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-brand-dark text-white text-sm font-semibold hover:bg-zinc-800 transition-colors"
-              >
-                <span>Selected Work</span>
-                <ArrowDownRight className="w-4 h-4 text-brand-primary" />
-              </a>
+                <a
+                  href="#work"
+                  className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-brand-dark text-white text-sm font-semibold hover:bg-zinc-800 shadow-2xs transition-colors"
+                >
+                  <span>Selected Work</span>
+                  <ArrowDownRight className="w-4 h-4 text-brand-primary" />
+                </a>
+              </div>
 
-              <button
-                type="button"
-                onClick={copyEmail}
-                className="inline-flex items-center gap-2 px-4 py-3.5 rounded-full bg-white border border-zinc-300 text-zinc-800 text-sm font-medium hover:border-brand-primary hover:bg-brand-primary-soft transition-colors cursor-pointer"
-              >
-                {copied ? (
-                  <>
-                    <Check className="w-4 h-4 text-emerald-600" />
-                    <span>Copied!</span>
-                  </>
-                ) : (
-                  <>
-                    <Copy className="w-4 h-4 text-zinc-400" />
-                    <span>{PROFILE.email}</span>
-                  </>
-                )}
-              </button>
-            </motion.div>
+              {/* Row 2: Profiles & Direct Contact */}
+              <div className="flex flex-wrap items-center gap-2.5">
+                <a
+                  href={PROFILE.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group inline-flex items-center gap-2 px-3.5 py-2 rounded-full bg-brand-dark text-white text-xs sm:text-sm font-semibold hover:bg-zinc-800 shadow-2xs transition-all"
+                >
+                  <GithubIcon className="w-4 h-4 text-white group-hover:scale-110 transition-transform" />
+                  <span>GitHub</span>
+                  <ArrowUpRight className="w-3.5 h-3.5 text-brand-primary group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                </a>
 
-            {/* High-Attention Social & Code Buttons */}
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.45, delay: 0.22 }}
-              className="mt-6 flex flex-wrap items-center gap-3"
-            >
-              <a
-                href={PROFILE.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group inline-flex items-center gap-2.5 px-4 py-2.5 rounded-full bg-brand-dark text-white text-sm font-semibold border-2 border-brand-dark shadow-[3px_3px_0px_0px_#facc15] hover:shadow-[4px_4px_0px_0px_#09090b] hover:bg-white hover:text-brand-dark hover:-translate-y-0.5 transition-all duration-200"
-              >
-                <GithubIcon className="w-4 h-4 group-hover:scale-110 transition-transform" />
-                <span>GitHub</span>
-                <span className="text-xs font-mono-code text-zinc-400 group-hover:text-zinc-600 font-normal">
-                  /Nasif284
-                </span>
-                <ArrowUpRight className="w-3.5 h-3.5 text-brand-primary group-hover:text-brand-dark group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-              </a>
+                <a
+                  href={PROFILE.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group inline-flex items-center gap-2 px-3.5 py-2 rounded-full bg-white text-brand-dark text-xs sm:text-sm font-semibold border border-zinc-200 hover:border-brand-primary hover:bg-brand-primary-soft shadow-2xs transition-all"
+                >
+                  <LinkedinIcon className="w-4 h-4 text-[#0A66C2] group-hover:scale-110 transition-transform" />
+                  <span>LinkedIn</span>
+                  <ArrowUpRight className="w-3.5 h-3.5 text-zinc-400 group-hover:text-brand-dark group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                </a>
 
-              <a
-                href={PROFILE.linkedin}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group inline-flex items-center gap-2.5 px-4 py-2.5 rounded-full bg-white text-brand-dark text-sm font-semibold border-2 border-brand-dark shadow-[3px_3px_0px_0px_#facc15] hover:shadow-[4px_4px_0px_0px_#09090b] hover:bg-brand-primary hover:-translate-y-0.5 transition-all duration-200"
-              >
-                <LinkedinIcon className="w-4 h-4 text-[#0A66C2] group-hover:scale-110 transition-transform" />
-                <span>LinkedIn</span>
-                <span className="text-xs font-mono-code text-zinc-500 group-hover:text-brand-dark font-normal">
-                  /nasif-m
-                </span>
-                <ArrowUpRight className="w-3.5 h-3.5 text-zinc-400 group-hover:text-brand-dark group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-              </a>
+                <button
+                  type="button"
+                  onClick={copyEmail}
+                  className="inline-flex items-center gap-2 px-3.5 py-2 rounded-full bg-white border border-zinc-200 text-zinc-700 text-xs sm:text-sm font-medium hover:border-brand-primary hover:bg-brand-primary-soft hover:text-brand-dark shadow-2xs transition-all cursor-pointer"
+                  title="Click to copy email address"
+                >
+                  {copied ? (
+                    <>
+                      <Check className="w-3.5 h-3.5 text-emerald-600" />
+                      <span className="text-emerald-700 font-semibold">Copied!</span>
+                    </>
+                  ) : (
+                    <>
+                      <Copy className="w-3.5 h-3.5 text-zinc-400" />
+                      <span>{PROFILE.email}</span>
+                    </>
+                  )}
+                </button>
+              </div>
             </motion.div>
           </div>
 
