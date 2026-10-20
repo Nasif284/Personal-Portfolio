@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { ArrowUpRight, Copy, Check, GraduationCap, MapPin } from 'lucide-react';
 import { EDUCATION, PROFILE } from '../data/portfolioData';
+import { GithubIcon, LinkedinIcon } from './SocialIcons';
 
 export const EducationAndContact: React.FC = () => {
   const [copied, setCopied] = useState(false);
@@ -156,19 +157,21 @@ export const EducationAndContact: React.FC = () => {
                 href={PROFILE.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1 hover:text-brand-dark transition-colors"
+                className="inline-flex items-center gap-1.5 hover:text-brand-dark transition-colors"
               >
+                <GithubIcon className="w-3.5 h-3.5" />
                 <span>GitHub</span>
-                <ArrowUpRight className="w-3.5 h-3.5" />
+                <ArrowUpRight className="w-3 h-3 text-zinc-400" />
               </a>
               <a
                 href={PROFILE.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1 hover:text-brand-dark transition-colors"
+                className="inline-flex items-center gap-1.5 hover:text-brand-dark transition-colors"
               >
+                <LinkedinIcon className="w-3.5 h-3.5 text-[#0A66C2]" />
                 <span>LinkedIn</span>
-                <ArrowUpRight className="w-3.5 h-3.5" />
+                <ArrowUpRight className="w-3 h-3 text-zinc-400" />
               </a>
               <a
                 href={PROFILE.resumeUrl}
@@ -177,7 +180,7 @@ export const EducationAndContact: React.FC = () => {
                 className="inline-flex items-center gap-1 hover:text-brand-dark transition-colors"
               >
                 <span>Resume PDF</span>
-                <ArrowUpRight className="w-3.5 h-3.5" />
+                <ArrowUpRight className="w-3 h-3 text-zinc-400" />
               </a>
             </div>
           </footer>

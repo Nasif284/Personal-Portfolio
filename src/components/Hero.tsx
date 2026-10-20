@@ -10,6 +10,7 @@ import {
   Code2,
 } from 'lucide-react';
 import { PROFILE } from '../data/portfolioData';
+import { GithubIcon, LinkedinIcon } from './SocialIcons';
 
 export const Hero: React.FC = () => {
   const [copied, setCopied] = useState(false);
@@ -116,30 +117,39 @@ export const Hero: React.FC = () => {
               </button>
             </motion.div>
 
-            {/* Social Row */}
+            {/* High-Attention Social & Code Buttons */}
             <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.45, delay: 0.22 }}
-              className="mt-6 flex items-center gap-5 text-sm font-medium text-zinc-500"
+              className="mt-6 flex flex-wrap items-center gap-3"
             >
               <a
                 href={PROFILE.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1 hover:text-brand-dark transition-colors"
+                className="group inline-flex items-center gap-2.5 px-4 py-2.5 rounded-full bg-brand-dark text-white text-sm font-semibold border-2 border-brand-dark shadow-[3px_3px_0px_0px_#facc15] hover:shadow-[4px_4px_0px_0px_#09090b] hover:bg-white hover:text-brand-dark hover:-translate-y-0.5 transition-all duration-200"
               >
+                <GithubIcon className="w-4 h-4 group-hover:scale-110 transition-transform" />
                 <span>GitHub</span>
-                <ArrowUpRight className="w-3.5 h-3.5" />
+                <span className="text-xs font-mono-code text-zinc-400 group-hover:text-zinc-600 font-normal">
+                  /Nasif284
+                </span>
+                <ArrowUpRight className="w-3.5 h-3.5 text-brand-primary group-hover:text-brand-dark group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
               </a>
+
               <a
                 href={PROFILE.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1 hover:text-brand-dark transition-colors"
+                className="group inline-flex items-center gap-2.5 px-4 py-2.5 rounded-full bg-white text-brand-dark text-sm font-semibold border-2 border-brand-dark shadow-[3px_3px_0px_0px_#facc15] hover:shadow-[4px_4px_0px_0px_#09090b] hover:bg-brand-primary hover:-translate-y-0.5 transition-all duration-200"
               >
+                <LinkedinIcon className="w-4 h-4 text-[#0A66C2] group-hover:scale-110 transition-transform" />
                 <span>LinkedIn</span>
-                <ArrowUpRight className="w-3.5 h-3.5" />
+                <span className="text-xs font-mono-code text-zinc-500 group-hover:text-brand-dark font-normal">
+                  /nasif-m
+                </span>
+                <ArrowUpRight className="w-3.5 h-3.5 text-zinc-400 group-hover:text-brand-dark group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
               </a>
             </motion.div>
           </div>
