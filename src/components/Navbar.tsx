@@ -15,7 +15,7 @@ export const Navbar: React.FC = () => {
     <header
       className={`sticky top-0 z-40 transition-all duration-300 ${
         scrolled
-          ? 'bg-white/85 backdrop-blur-md border-b border-slate-200/80'
+          ? 'bg-white/85 backdrop-blur-md border-b border-zinc-200/80'
           : 'bg-white border-b border-transparent'
       }`}
     >
@@ -23,28 +23,28 @@ export const Navbar: React.FC = () => {
         {/* Brand with Portrait Avatar */}
         <a
           href="#top"
-          className="flex items-center gap-3 text-slate-900 font-semibold tracking-tight hover:text-blue-600 transition-colors"
+          className="flex items-center gap-3 text-brand-dark font-semibold tracking-tight hover:opacity-80 transition-opacity"
         >
           <img
             src="/images/nasif-avatar.jpg"
             alt={PROFILE.name}
-            className="w-9 h-9 rounded-full object-cover object-top bg-blue-50 border border-slate-200 shadow-2xs"
+            className="w-9 h-9 rounded-full object-cover object-top bg-brand-primary-soft border-2 border-brand-primary shadow-2xs"
           />
-          <span className="text-base">{PROFILE.name}</span>
+          <span className="text-base font-bold">{PROFILE.name}</span>
         </a>
 
         {/* Minimal Navigation */}
-        <nav className="hidden sm:flex items-center gap-8 text-sm font-medium text-slate-600">
-          <a href="#work" className="hover:text-blue-600 transition-colors">
+        <nav className="hidden sm:flex items-center gap-8 text-sm font-medium text-zinc-600">
+          <a href="#work" className="hover:text-brand-dark transition-colors">
             Work
           </a>
-          <a href="#stack" className="hover:text-blue-600 transition-colors">
+          <a href="#stack" className="hover:text-brand-dark transition-colors">
             Stack
           </a>
-          <a href="#about" className="hover:text-blue-600 transition-colors">
+          <a href="#about" className="hover:text-brand-dark transition-colors">
             About
           </a>
-          <a href="#contact" className="hover:text-blue-600 transition-colors">
+          <a href="#contact" className="hover:text-brand-dark transition-colors">
             Contact
           </a>
         </nav>
@@ -54,10 +54,10 @@ export const Navbar: React.FC = () => {
           href={PROFILE.resumeUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-slate-900 text-white text-xs sm:text-sm font-medium hover:bg-blue-600 transition-colors"
+          className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-brand-primary text-brand-dark text-xs sm:text-sm font-semibold border border-brand-primary-border hover:bg-brand-primary-hover shadow-2xs transition-all hover:scale-[1.02]"
         >
           <span>Resume</span>
-          <ArrowUpRight className="w-3.5 h-3.5" />
+          <ArrowUpRight className="w-3.5 h-3.5 text-brand-dark" />
         </a>
       </div>
     </header>

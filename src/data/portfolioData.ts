@@ -9,6 +9,7 @@ export interface ProjectItem {
   apiRepo?: string;
   clientRepo: string;
   tags: string[];
+  image: string;
 }
 
 export const PROFILE = {
@@ -35,6 +36,7 @@ export const PROJECTS: ProjectItem[] = [
     apiRepo: 'https://github.com/Nasif284/Voymate-Server',
     clientRepo: 'https://github.com/Nasif284/Voymate-client',
     tags: ['Node.js', 'TypeScript', 'Next.js', 'PostGIS', 'WebRTC', 'LangGraph', 'AWS'],
+    image: '/images/projects/voymate.png',
   },
   {
     id: 'kafla',
@@ -48,6 +50,7 @@ export const PROJECTS: ProjectItem[] = [
     apiRepo: 'https://github.com/Nasif284/Kafla-server',
     clientRepo: 'https://github.com/Nasif284/Kafla-client',
     tags: ['Node.js', 'TypeScript', 'Next.js', 'Prisma', 'Redis', 'LangGraph & MCP', 'Socket.IO'],
+    image: '/images/projects/kafla.png',
   },
   {
     id: 'gracia',
@@ -61,6 +64,7 @@ export const PROJECTS: ProjectItem[] = [
     apiRepo: 'https://github.com/Nasif284/Gracia-E-Commerce-Api',
     clientRepo: 'https://github.com/Nasif284/Gracia-E-Commerce-Client',
     tags: ['Node.js', 'Express', 'React', 'Redux / RTK Query', 'MongoDB', 'Gemini API', 'Docker'],
+    image: '/images/projects/gracia.png',
   },
   {
     id: 'concept-ladder',
@@ -73,6 +77,7 @@ export const PROJECTS: ProjectItem[] = [
     liveUrl: 'https://conceptladder.nasifhub.online/',
     clientRepo: 'https://github.com/Nasif284/Concept_ladder.ai',
     tags: ['React', 'Gemini API', 'Clerk', 'Supabase PostgreSQL', 'Tailwind CSS'],
+    image: '/images/projects/concept-ladder.png',
   },
 ];
 
