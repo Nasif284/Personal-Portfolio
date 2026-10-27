@@ -20,8 +20,14 @@ interface GitHubData {
 
 export const GitHubActivity: React.FC = () => {
   const [data, setData] = useState<GitHubData>(fallbackData as GitHubData);
-  const [tooltip, setTooltip] = useState<{ day: ContributionDay; dayIdx: number; x: number; y: number } | null>(null);
-  const heatmapContainerRef = useRef<HTMLDivElement>(null);
+  const [tooltip, setTooltip] = useState<{
+    day: ContributionDay;
+    dayIdx: number;
+    x: number;
+    y: number;
+    arrowOffset: number;
+  } | null>(null);
+  const sectionCardRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     let isMounted = true;
@@ -216,7 +222,41 @@ export const GitHubActivity: React.FC = () => {
           </div>
 
           {/* Interactive Heatmap Matrix */}
-          <div className="p-5 sm:p-6">
+          <div ref={sectionCardRef} className="p-5 sm:p-6 relative">
+            {/* Floating Smart Tooltip - Placed in non-scrollable parent to permanently prevent scrollbar spawning */}
+            {tooltip && (
+              <div
+                style={{
+                  left: `${tooltip.x}px`,
+                  top: tooltip.dayIdx <= 2 ? `${tooltip.y + 18}px` : `${tooltip.y - 8}px`,
+                }}
+                className={`pointer-events-none absolute -translate-x-1/2 ${
+                  tooltip.dayIdx <= 2 ? '' : '-translate-y-full'
+                } z-40 px-2.5 py-1.5 rounded-md bg-zinc-950 text-white text-[11px] font-mono-code border border-zinc-700 shadow-2xl whitespace-nowrap`}
+              >
+                <div className="flex items-center gap-1.5">
+                  <span className="font-semibold text-emerald-400">
+                    {tooltip.day.count === 0
+                      ? 'No contributions'
+                      : `${tooltip.day.count} contribution${tooltip.day.count === 1 ? '' : 's'}`}
+                  </span>
+                  <span className="text-zinc-400">on {tooltip.day.date}</span>
+                </div>
+                {/* Caret pointing UP when tooltip is below cell, DOWN when above cell */}
+                {tooltip.dayIdx <= 2 ? (
+                  <div
+                    style={{ left: `calc(50% + ${tooltip.arrowOffset}px)` }}
+                    className="absolute bottom-full -translate-x-1/2 border-4 border-transparent border-b-zinc-950"
+                  />
+                ) : (
+                  <div
+                    style={{ left: `calc(50% + ${tooltip.arrowOffset}px)` }}
+                    className="absolute top-full -translate-x-1/2 -mt-[1px] border-4 border-transparent border-t-zinc-950"
+                  />
+                )}
+              </div>
+            )}
+
             <div className="flex items-center justify-between gap-2 mb-3">
               <div className="text-xs font-mono-code text-zinc-400 uppercase tracking-wider">
                 52-Week Contribution Matrix
@@ -226,36 +266,8 @@ export const GitHubActivity: React.FC = () => {
               </div>
             </div>
 
-            {/* Heatmap Grid with Smart Floating Tooltip and full-width distribution */}
-            <div ref={heatmapContainerRef} className="relative overflow-x-auto pb-3 pt-2">
-              {/* Floating Smart-Direction Tooltip (Points Down on Top Rows, Up on Lower Rows) */}
-              {tooltip && (
-                <div
-                  style={{
-                    left: `${tooltip.x}px`,
-                    top: tooltip.dayIdx <= 2 ? `${tooltip.y + 18}px` : `${tooltip.y - 8}px`,
-                  }}
-                  className={`pointer-events-none absolute -translate-x-1/2 ${
-                    tooltip.dayIdx <= 2 ? '' : '-translate-y-full'
-                  } z-30 px-2.5 py-1.5 rounded-md bg-zinc-950 text-white text-[11px] font-mono-code border border-zinc-700 shadow-2xl whitespace-nowrap`}
-                >
-                  <div className="flex items-center gap-1.5">
-                    <span className="font-semibold text-emerald-400">
-                      {tooltip.day.count === 0
-                        ? 'No contributions'
-                        : `${tooltip.day.count} contribution${tooltip.day.count === 1 ? '' : 's'}`}
-                    </span>
-                    <span className="text-zinc-400">on {tooltip.day.date}</span>
-                  </div>
-                  {/* Caret pointing UP when tooltip is below cell, DOWN when above cell */}
-                  {tooltip.dayIdx <= 2 ? (
-                    <div className="absolute bottom-full left-1/2 -translate-x-1/2 border-4 border-transparent border-b-zinc-950" />
-                  ) : (
-                    <div className="absolute top-full left-1/2 -translate-x-1/2 -mt-[1px] border-4 border-transparent border-t-zinc-950" />
-                  )}
-                </div>
-              )}
-
+            {/* Scrollable Heatmap Grid (Clean, scrollbar will NEVER trigger from tooltip) */}
+            <div className="relative overflow-x-auto pb-3 pt-2">
               <div className="min-w-[760px]">
                 {/* Month labels spanning the full width */}
                 <div className="w-full flex justify-between text-[11px] font-mono-code text-zinc-500 mb-2 px-1 select-none">
@@ -282,13 +294,17 @@ export const GitHubActivity: React.FC = () => {
                           key={day.date}
                           onMouseEnter={(e) => {
                             const cellRect = e.currentTarget.getBoundingClientRect();
-                            const containerRect = heatmapContainerRef.current?.getBoundingClientRect();
-                            if (containerRect) {
+                            const cardRect = sectionCardRef.current?.getBoundingClientRect();
+                            if (cardRect) {
+                              const rawX = cellRect.left - cardRect.left + cellRect.width / 2;
+                              // Clamp X so tooltip never overflows left or right edge of the card
+                              const clampedX = Math.max(115, Math.min(rawX, cardRect.width - 115));
                               setTooltip({
                                 day,
                                 dayIdx,
-                                x: cellRect.left - containerRect.left + cellRect.width / 2,
-                                y: cellRect.top - containerRect.top,
+                                x: clampedX,
+                                arrowOffset: Math.max(-80, Math.min(rawX - clampedX, 80)),
+                                y: cellRect.top - cardRect.top,
                               });
                             }
                           }}
