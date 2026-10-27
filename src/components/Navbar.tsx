@@ -41,11 +41,11 @@ export const Navbar: React.FC = () => {
           <a href="#stack" className="hover:text-brand-dark transition-colors">
             Stack
           </a>
-          <a href="#activity" className="hover:text-brand-dark transition-colors">
-            Activity
-          </a>
           <a href="#about" className="hover:text-brand-dark transition-colors">
             About
+          </a>
+          <a href="#activity" className="hover:text-brand-dark transition-colors">
+            Activity
           </a>
           <a href="#contact" className="hover:text-brand-dark transition-colors">
             Contact

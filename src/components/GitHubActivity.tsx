@@ -123,7 +123,7 @@ export const GitHubActivity: React.FC = () => {
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10">
           <div>
             <span className="font-mono-code text-xs uppercase tracking-widest text-brand-dark font-bold bg-brand-primary px-2.5 py-0.5 rounded">
-              03 / Live Activity
+              04 / Live Activity
             </span>
             <h2 className="font-serif-editorial text-4xl sm:text-5xl text-brand-dark mt-2">
               Engineering momentum &amp; consistency.
@@ -166,58 +166,58 @@ export const GitHubActivity: React.FC = () => {
             </div>
           </div>
 
-          {/* Metric KPI Cards */}
-          <div className="p-6 sm:p-8 grid grid-cols-1 sm:grid-cols-3 gap-4 border-b border-zinc-800/80 bg-zinc-900/40">
+          {/* Metric KPI Cards - Reduced size with standard formal fonts */}
+          <div className="p-4 sm:p-5 grid grid-cols-1 sm:grid-cols-3 gap-3 border-b border-zinc-800/80 bg-zinc-900/40">
             {/* Total Contributions */}
-            <div className="p-5 rounded-2xl bg-zinc-900/80 border border-zinc-800 hover:border-emerald-500/40 transition-colors">
-              <div className="flex items-center justify-between text-zinc-400 text-xs font-mono-code uppercase tracking-wider mb-2">
+            <div className="p-3.5 sm:p-4 rounded-xl bg-zinc-900/90 border border-zinc-800/90 hover:border-emerald-500/40 transition-colors">
+              <div className="flex items-center justify-between text-zinc-400 text-xs font-mono-code uppercase tracking-wider mb-1.5">
                 <span>Total Commits</span>
-                <GitCommit className="w-4 h-4 text-emerald-400" />
+                <GitCommit className="w-3.5 h-3.5 text-emerald-400" />
               </div>
-              <div className="font-serif-editorial text-4xl sm:text-5xl text-emerald-400 font-bold">
+              <div className="font-mono-code font-bold text-2xl sm:text-3xl text-emerald-400 tracking-tight">
                 {totalCount}
-                <span className="text-2xl font-sans text-emerald-400/70 font-normal">+</span>
+                <span className="text-lg font-sans text-emerald-400/70 font-normal">+</span>
               </div>
-              <div className="mt-1 text-xs text-zinc-400 font-mono-code">
+              <div className="mt-1 text-[11px] text-zinc-400 font-mono-code">
                 In the last 365 days
               </div>
             </div>
 
             {/* Current Streak */}
-            <div className="p-5 rounded-2xl bg-zinc-900/80 border border-zinc-800 hover:border-brand-primary/40 transition-colors">
-              <div className="flex items-center justify-between text-zinc-400 text-xs font-mono-code uppercase tracking-wider mb-2">
+            <div className="p-3.5 sm:p-4 rounded-xl bg-zinc-900/90 border border-zinc-800/90 hover:border-brand-primary/40 transition-colors">
+              <div className="flex items-center justify-between text-zinc-400 text-xs font-mono-code uppercase tracking-wider mb-1.5">
                 <span>Current Streak</span>
-                <Flame className="w-4 h-4 text-brand-primary animate-bounce" />
+                <Flame className="w-3.5 h-3.5 text-brand-primary animate-bounce" />
               </div>
-              <div className="font-serif-editorial text-4xl sm:text-5xl text-white font-bold flex items-baseline gap-2">
+              <div className="font-mono-code font-bold text-2xl sm:text-3xl text-white tracking-tight flex items-baseline gap-1.5">
                 <span>{currentStreak}</span>
-                <span className="text-lg font-sans text-zinc-400 font-medium">Days</span>
+                <span className="text-sm font-sans text-zinc-400 font-normal">days</span>
               </div>
-              <div className="mt-1 text-xs text-emerald-400 font-mono-code flex items-center gap-1.5">
+              <div className="mt-1 text-[11px] text-emerald-400 font-mono-code flex items-center gap-1.5">
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
                 <span>Streak actively running</span>
               </div>
             </div>
 
             {/* Longest Streak */}
-            <div className="p-5 rounded-2xl bg-zinc-900/80 border border-zinc-800 hover:border-zinc-700 transition-colors">
-              <div className="flex items-center justify-between text-zinc-400 text-xs font-mono-code uppercase tracking-wider mb-2">
+            <div className="p-3.5 sm:p-4 rounded-xl bg-zinc-900/90 border border-zinc-800/90 hover:border-zinc-700 transition-colors">
+              <div className="flex items-center justify-between text-zinc-400 text-xs font-mono-code uppercase tracking-wider mb-1.5">
                 <span>Best Streak</span>
-                <Activity className="w-4 h-4 text-zinc-400" />
+                <Activity className="w-3.5 h-3.5 text-zinc-400" />
               </div>
-              <div className="font-serif-editorial text-4xl sm:text-5xl text-white font-bold flex items-baseline gap-2">
+              <div className="font-mono-code font-bold text-2xl sm:text-3xl text-white tracking-tight flex items-baseline gap-1.5">
                 <span>{longestStreak}</span>
-                <span className="text-lg font-sans text-zinc-400 font-medium">Days</span>
+                <span className="text-sm font-sans text-zinc-400 font-normal">days</span>
               </div>
-              <div className="mt-1 text-xs text-zinc-400 font-mono-code">
+              <div className="mt-1 text-[11px] text-zinc-400 font-mono-code">
                 Longest consecutive run
               </div>
             </div>
           </div>
 
           {/* Interactive Heatmap Matrix */}
-          <div className="p-6 sm:p-8">
-            <div className="flex items-center justify-between gap-2 mb-4">
+          <div className="p-5 sm:p-6">
+            <div className="flex items-center justify-between gap-2 mb-3">
               <div className="text-xs font-mono-code text-zinc-400 uppercase tracking-wider">
                 52-Week Contribution Matrix
               </div>
@@ -226,13 +226,13 @@ export const GitHubActivity: React.FC = () => {
               </div>
             </div>
 
-            {/* Heatmap Grid with Smooth Floating Tooltip */}
-            <div ref={heatmapContainerRef} className="relative overflow-x-auto pb-4 pt-1">
+            {/* Heatmap Grid with Smooth Floating Tooltip and reduced box size */}
+            <div ref={heatmapContainerRef} className="relative overflow-x-auto pb-3 pt-1">
               {/* Floating Tooltip */}
               {tooltip && (
                 <div
-                  style={{ left: `${tooltip.x}px`, top: `${tooltip.y - 10}px` }}
-                  className="pointer-events-none absolute -translate-x-1/2 -translate-y-full z-30 px-3 py-1.5 rounded-md bg-zinc-950 text-white text-[11px] font-mono-code border border-zinc-700 shadow-2xl whitespace-nowrap"
+                  style={{ left: `${tooltip.x}px`, top: `${tooltip.y - 8}px` }}
+                  className="pointer-events-none absolute -translate-x-1/2 -translate-y-full z-30 px-2.5 py-1.5 rounded-md bg-zinc-950 text-white text-[11px] font-mono-code border border-zinc-700 shadow-2xl whitespace-nowrap"
                 >
                   <div className="flex items-center gap-1.5">
                     <span className="font-semibold text-emerald-400">
@@ -246,7 +246,7 @@ export const GitHubActivity: React.FC = () => {
                 </div>
               )}
 
-              <div className="inline-flex gap-1 min-w-[720px]">
+              <div className="inline-flex gap-1 min-w-[620px]">
                 {weeks.map((week, weekIdx) => (
                   <div key={weekIdx} className="flex flex-col gap-1">
                     {week.map((day) => (
@@ -264,7 +264,7 @@ export const GitHubActivity: React.FC = () => {
                           }
                         }}
                         onMouseLeave={() => setTooltip(null)}
-                        className={`w-3 h-3 rounded-[2px] transition-colors cursor-pointer ${getCellColor(
+                        className={`w-2.5 h-2.5 rounded-[2px] transition-colors cursor-pointer ${getCellColor(
                           day.level,
                           day.count
                         )}`}
@@ -276,14 +276,14 @@ export const GitHubActivity: React.FC = () => {
             </div>
 
             {/* Classic GitHub Green Legend and CTA */}
-            <div className="mt-4 pt-4 border-t border-zinc-800/80 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono-code text-zinc-400">
+            <div className="mt-3 pt-3 border-t border-zinc-800/80 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono-code text-zinc-400">
               <div className="flex items-center gap-2">
                 <span>Less</span>
-                <span className="w-3 h-3 rounded-[2px] bg-[#161b22] border border-[#30363d]/50" />
-                <span className="w-3 h-3 rounded-[2px] bg-[#0e4429]" />
-                <span className="w-3 h-3 rounded-[2px] bg-[#006d32]" />
-                <span className="w-3 h-3 rounded-[2px] bg-[#26a641]" />
-                <span className="w-3 h-3 rounded-[2px] bg-[#39d353]" />
+                <span className="w-2.5 h-2.5 rounded-[2px] bg-[#161b22] border border-[#30363d]/50" />
+                <span className="w-2.5 h-2.5 rounded-[2px] bg-[#0e4429]" />
+                <span className="w-2.5 h-2.5 rounded-[2px] bg-[#006d32]" />
+                <span className="w-2.5 h-2.5 rounded-[2px] bg-[#26a641]" />
+                <span className="w-2.5 h-2.5 rounded-[2px] bg-[#39d353]" />
                 <span>More</span>
               </div>
 

@@ -3,8 +3,8 @@ import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { ProjectsShowcase } from './components/ProjectsShowcase';
 import { SkillsAndArchitecture } from './components/SkillsAndArchitecture';
+import { AboutSection, ContactSection } from './components/EducationAndContact';
 import { GitHubActivity } from './components/GitHubActivity';
-import { EducationAndContact } from './components/EducationAndContact';
 
 export const App: React.FC = () => {
   return (
@@ -14,8 +14,9 @@ export const App: React.FC = () => {
         <Hero />
         <ProjectsShowcase />
         <SkillsAndArchitecture />
+        <AboutSection />
         <GitHubActivity />
-        <EducationAndContact />
+        <ContactSection />
       </main>
     </div>
   );
