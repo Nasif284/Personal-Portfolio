@@ -29,17 +29,6 @@ export const Hero: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           {/* Left Column: Headline & CTAs */}
           <div className="lg:col-span-7">
-            {/* Status Pill */}
-            <motion.div
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4 }}
-              className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-brand-primary-soft border border-brand-primary-border text-brand-primary-text text-xs font-semibold mb-4 sm:mb-5 shadow-2xs"
-            >
-              <span className="w-2.5 h-2.5 rounded-full bg-brand-primary ring-2 ring-brand-primary/40 animate-pulse" />
-              <span>Available for Software Engineering Roles · MCA @ IIT Patna</span>
-            </motion.div>
-
             {/* Catchy Editorial Headline */}
             <motion.h1
               initial={{ opacity: 0, y: 12 }}
@@ -73,19 +62,19 @@ export const Hero: React.FC = () => {
               .
             </motion.p>
 
-            {/* Action & Connect Cluster - Clean 2-Row Balanced Layout */}
+            {/* Action & Connect Cluster - Clean Balanced Responsive Layout */}
             <motion.div
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.45, delay: 0.15 }}
-              className="mt-8 flex flex-col gap-3.5"
+              className="mt-8 flex flex-col gap-3"
             >
               {/* Row 1: Primary Portfolio Actions */}
-              <div className="flex flex-wrap items-center gap-3">
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
                 <a
                   href={PROFILE.resumeUrl}
                   download="Muhammad_Nasif_Resume.pdf"
-                  className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-brand-primary text-brand-dark font-semibold text-sm shadow-2xs hover:bg-brand-primary-hover hover:scale-[1.02] border border-brand-primary-border transition-all cursor-pointer"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-brand-primary text-brand-dark font-semibold text-sm shadow-2xs hover:bg-brand-primary-hover hover:scale-[1.02] border border-brand-primary-border transition-all cursor-pointer text-center"
                 >
                   <Download className="w-4 h-4" />
                   <span>Download Resume</span>
@@ -93,7 +82,7 @@ export const Hero: React.FC = () => {
 
                 <a
                   href="#work"
-                  className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-brand-dark text-white text-sm font-semibold hover:bg-zinc-800 shadow-2xs transition-colors"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-brand-dark text-white text-sm font-semibold hover:bg-zinc-800 shadow-2xs transition-colors text-center"
                 >
                   <span>Selected Work</span>
                   <ArrowDownRight className="w-4 h-4 text-brand-primary" />
@@ -101,33 +90,37 @@ export const Hero: React.FC = () => {
               </div>
 
               {/* Row 2: Profiles & Direct Contact */}
-              <div className="flex flex-wrap items-center gap-2.5">
-                <a
-                  href={PROFILE.github}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group inline-flex items-center gap-2 px-3.5 py-2 rounded-full bg-brand-dark text-white text-xs sm:text-sm font-semibold hover:bg-zinc-800 shadow-2xs transition-all"
-                >
-                  <GithubIcon className="w-4 h-4 text-white group-hover:scale-110 transition-transform" />
-                  <span>GitHub</span>
-                  <ArrowUpRight className="w-3.5 h-3.5 text-brand-primary group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-                </a>
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5">
+                {/* 50/50 side by side on mobile for GitHub & LinkedIn, natural width on desktop */}
+                <div className="flex items-center gap-2.5 w-full sm:w-auto">
+                  <a
+                    href={PROFILE.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-full bg-brand-dark text-white text-xs sm:text-sm font-semibold hover:bg-zinc-800 shadow-2xs transition-all"
+                  >
+                    <GithubIcon className="w-4 h-4 text-white group-hover:scale-110 transition-transform" />
+                    <span>GitHub</span>
+                    <ArrowUpRight className="w-3.5 h-3.5 text-brand-primary group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                  </a>
 
-                <a
-                  href={PROFILE.linkedin}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group inline-flex items-center gap-2 px-3.5 py-2 rounded-full bg-white text-brand-dark text-xs sm:text-sm font-semibold border border-zinc-200 hover:border-brand-primary hover:bg-brand-primary-soft shadow-2xs transition-all"
-                >
-                  <LinkedinIcon className="w-4 h-4 text-[#0A66C2] group-hover:scale-110 transition-transform" />
-                  <span>LinkedIn</span>
-                  <ArrowUpRight className="w-3.5 h-3.5 text-zinc-400 group-hover:text-brand-dark group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-                </a>
+                  <a
+                    href={PROFILE.linkedin}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-full bg-white text-brand-dark text-xs sm:text-sm font-semibold border border-zinc-200 hover:border-brand-primary hover:bg-brand-primary-soft shadow-2xs transition-all"
+                  >
+                    <LinkedinIcon className="w-4 h-4 text-[#0A66C2] group-hover:scale-110 transition-transform" />
+                    <span>LinkedIn</span>
+                    <ArrowUpRight className="w-3.5 h-3.5 text-zinc-400 group-hover:text-brand-dark group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                  </a>
+                </div>
 
+                {/* Email Copy Pill - Full-width on mobile, auto on desktop */}
                 <button
                   type="button"
                   onClick={copyEmail}
-                  className="inline-flex items-center gap-2 px-3.5 py-2 rounded-full bg-white border border-zinc-200 text-zinc-700 text-xs sm:text-sm font-medium hover:border-brand-primary hover:bg-brand-primary-soft hover:text-brand-dark shadow-2xs transition-all cursor-pointer"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-full bg-white border border-zinc-200 text-zinc-700 text-xs sm:text-sm font-medium hover:border-brand-primary hover:bg-brand-primary-soft hover:text-brand-dark shadow-2xs transition-all cursor-pointer"
                   title="Click to copy email address"
                 >
                   {copied ? (
