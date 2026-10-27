@@ -20,7 +20,7 @@ interface GitHubData {
 
 export const GitHubActivity: React.FC = () => {
   const [data, setData] = useState<GitHubData>(fallbackData as GitHubData);
-  const [tooltip, setTooltip] = useState<{ day: ContributionDay; x: number; y: number } | null>(null);
+  const [tooltip, setTooltip] = useState<{ day: ContributionDay; dayIdx: number; x: number; y: number } | null>(null);
   const heatmapContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -226,13 +226,18 @@ export const GitHubActivity: React.FC = () => {
               </div>
             </div>
 
-            {/* Heatmap Grid with Smooth Floating Tooltip and reduced box size */}
-            <div ref={heatmapContainerRef} className="relative overflow-x-auto pb-3 pt-1">
-              {/* Floating Tooltip */}
+            {/* Heatmap Grid with Smart Floating Tooltip and full-width distribution */}
+            <div ref={heatmapContainerRef} className="relative overflow-x-auto pb-3 pt-2">
+              {/* Floating Smart-Direction Tooltip (Points Down on Top Rows, Up on Lower Rows) */}
               {tooltip && (
                 <div
-                  style={{ left: `${tooltip.x}px`, top: `${tooltip.y - 8}px` }}
-                  className="pointer-events-none absolute -translate-x-1/2 -translate-y-full z-30 px-2.5 py-1.5 rounded-md bg-zinc-950 text-white text-[11px] font-mono-code border border-zinc-700 shadow-2xl whitespace-nowrap"
+                  style={{
+                    left: `${tooltip.x}px`,
+                    top: tooltip.dayIdx <= 2 ? `${tooltip.y + 18}px` : `${tooltip.y - 8}px`,
+                  }}
+                  className={`pointer-events-none absolute -translate-x-1/2 ${
+                    tooltip.dayIdx <= 2 ? '' : '-translate-y-full'
+                  } z-30 px-2.5 py-1.5 rounded-md bg-zinc-950 text-white text-[11px] font-mono-code border border-zinc-700 shadow-2xl whitespace-nowrap`}
                 >
                   <div className="flex items-center gap-1.5">
                     <span className="font-semibold text-emerald-400">
@@ -242,36 +247,61 @@ export const GitHubActivity: React.FC = () => {
                     </span>
                     <span className="text-zinc-400">on {tooltip.day.date}</span>
                   </div>
-                  <div className="absolute top-full left-1/2 -translate-x-1/2 -mt-[1px] border-4 border-transparent border-t-zinc-950" />
+                  {/* Caret pointing UP when tooltip is below cell, DOWN when above cell */}
+                  {tooltip.dayIdx <= 2 ? (
+                    <div className="absolute bottom-full left-1/2 -translate-x-1/2 border-4 border-transparent border-b-zinc-950" />
+                  ) : (
+                    <div className="absolute top-full left-1/2 -translate-x-1/2 -mt-[1px] border-4 border-transparent border-t-zinc-950" />
+                  )}
                 </div>
               )}
 
-              <div className="inline-flex gap-1 min-w-[620px]">
-                {weeks.map((week, weekIdx) => (
-                  <div key={weekIdx} className="flex flex-col gap-1">
-                    {week.map((day) => (
-                      <div
-                        key={day.date}
-                        onMouseEnter={(e) => {
-                          const cellRect = e.currentTarget.getBoundingClientRect();
-                          const containerRect = heatmapContainerRef.current?.getBoundingClientRect();
-                          if (containerRect) {
-                            setTooltip({
-                              day,
-                              x: cellRect.left - containerRect.left + cellRect.width / 2,
-                              y: cellRect.top - containerRect.top,
-                            });
-                          }
-                        }}
-                        onMouseLeave={() => setTooltip(null)}
-                        className={`w-2.5 h-2.5 rounded-[2px] transition-colors cursor-pointer ${getCellColor(
-                          day.level,
-                          day.count
-                        )}`}
-                      />
-                    ))}
-                  </div>
-                ))}
+              <div className="min-w-[760px]">
+                {/* Month labels spanning the full width */}
+                <div className="w-full flex justify-between text-[11px] font-mono-code text-zinc-500 mb-2 px-1 select-none">
+                  <span>Nov</span>
+                  <span>Dec</span>
+                  <span>Jan</span>
+                  <span>Feb</span>
+                  <span>Mar</span>
+                  <span>Apr</span>
+                  <span>May</span>
+                  <span>Jun</span>
+                  <span>Jul</span>
+                  <span>Aug</span>
+                  <span>Sep</span>
+                  <span>Oct</span>
+                </div>
+
+                {/* 52 Week columns spanning full width */}
+                <div className="w-full flex justify-between gap-1">
+                  {weeks.map((week, weekIdx) => (
+                    <div key={weekIdx} className="flex flex-col gap-1">
+                      {week.map((day, dayIdx) => (
+                        <div
+                          key={day.date}
+                          onMouseEnter={(e) => {
+                            const cellRect = e.currentTarget.getBoundingClientRect();
+                            const containerRect = heatmapContainerRef.current?.getBoundingClientRect();
+                            if (containerRect) {
+                              setTooltip({
+                                day,
+                                dayIdx,
+                                x: cellRect.left - containerRect.left + cellRect.width / 2,
+                                y: cellRect.top - containerRect.top,
+                              });
+                            }
+                          }}
+                          onMouseLeave={() => setTooltip(null)}
+                          className={`w-2.5 h-2.5 sm:w-[11px] sm:h-[11px] rounded-[2px] transition-colors cursor-pointer ${getCellColor(
+                            day.level,
+                            day.count
+                          )}`}
+                        />
+                      ))}
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
 
