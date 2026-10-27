@@ -34,12 +34,15 @@ export const Navbar: React.FC = () => {
         </a>
 
         {/* Minimal Navigation */}
-        <nav className="hidden sm:flex items-center gap-8 text-sm font-medium text-zinc-600">
+        <nav className="hidden sm:flex items-center gap-7 text-sm font-medium text-zinc-600">
           <a href="#work" className="hover:text-brand-dark transition-colors">
             Work
           </a>
           <a href="#stack" className="hover:text-brand-dark transition-colors">
             Stack
+          </a>
+          <a href="#activity" className="hover:text-brand-dark transition-colors">
+            Activity
           </a>
           <a href="#about" className="hover:text-brand-dark transition-colors">
             About

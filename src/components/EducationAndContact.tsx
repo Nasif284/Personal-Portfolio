@@ -24,7 +24,7 @@ export const EducationAndContact: React.FC = () => {
             {/* Left: Short Engineering Philosophy */}
             <div className="lg:col-span-6">
               <span className="font-mono-code text-xs uppercase tracking-widest text-brand-dark font-bold bg-brand-primary px-2.5 py-0.5 rounded">
-                03 / About
+                04 / About
               </span>
               <h2 className="font-serif-editorial text-4xl sm:text-5xl text-brand-dark mt-2">
                 From architecture to stage demos.
