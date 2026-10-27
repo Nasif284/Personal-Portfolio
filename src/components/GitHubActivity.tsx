@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { Flame, GitCommit, ArrowUpRight, Activity } from 'lucide-react';
 import { GithubIcon } from './SocialIcons';
@@ -20,8 +20,8 @@ interface GitHubData {
 
 export const GitHubActivity: React.FC = () => {
   const [data, setData] = useState<GitHubData>(fallbackData as GitHubData);
-  const [hoveredDay, setHoveredDay] = useState<ContributionDay | null>(null);
-  const [isLive, setIsLive] = useState(false);
+  const [tooltip, setTooltip] = useState<{ day: ContributionDay; x: number; y: number } | null>(null);
+  const heatmapContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     let isMounted = true;
@@ -38,7 +38,6 @@ export const GitHubActivity: React.FC = () => {
       .then((json: GitHubData) => {
         if (isMounted && json && json.contributions && json.contributions.length > 0) {
           setData(json);
-          setIsLive(true);
         }
       })
       .catch(() => {
@@ -77,7 +76,6 @@ export const GitHubActivity: React.FC = () => {
       if (days[i].count > 0) {
         current++;
       } else if (i === days.length - 1) {
-        // Today might not have commits yet, check yesterday
         continue;
       } else {
         break;
@@ -107,13 +105,13 @@ export const GitHubActivity: React.FC = () => {
     return grouped;
   }, [data]);
 
-  // Helper for custom yellow theme levels
+  // Classic GitHub Green Palette
   const getCellColor = (level: number, count: number) => {
-    if (count === 0 || level === 0) return 'bg-zinc-800/80 hover:bg-zinc-700';
-    if (level === 1) return 'bg-amber-900/60 border border-amber-700/40 hover:bg-amber-800';
-    if (level === 2) return 'bg-[#ca8a04] hover:bg-[#eab308]';
-    if (level === 3) return 'bg-[#facc15] hover:bg-[#fde047] shadow-[0_0_6px_rgba(250,204,21,0.4)]';
-    return 'bg-[#fef08a] hover:bg-white shadow-[0_0_10px_rgba(254,240,138,0.7)]';
+    if (count === 0 || level === 0) return 'bg-[#161b22] border border-[#30363d]/50 hover:border-zinc-500';
+    if (level === 1) return 'bg-[#0e4429] hover:bg-[#155a36]';
+    if (level === 2) return 'bg-[#006d32] hover:bg-[#008f42]';
+    if (level === 3) return 'bg-[#26a641] hover:bg-[#34c759]';
+    return 'bg-[#39d353] hover:bg-[#58e870] shadow-[0_0_6px_rgba(57,211,83,0.5)]';
   };
 
   const totalCount = data.total?.lastYear || 425;
@@ -154,7 +152,7 @@ export const GitHubActivity: React.FC = () => {
           transition={{ duration: 0.5 }}
           className="rounded-3xl border-2 border-brand-dark bg-brand-dark text-white shadow-xl overflow-hidden"
         >
-          {/* Terminal Window Header Bar */}
+          {/* Terminal Window Header Bar (No Live Sync Badge) */}
           <div className="px-6 py-4 bg-zinc-950/80 border-b border-zinc-800 flex items-center justify-between">
             <div className="flex items-center gap-3">
               <div className="flex items-center gap-1.5" aria-hidden="true">
@@ -162,19 +160,8 @@ export const GitHubActivity: React.FC = () => {
                 <span className="w-3 h-3 rounded-full bg-yellow-500/80" />
                 <span className="w-3 h-3 rounded-full bg-emerald-500/80" />
               </div>
-              <span className="font-mono-code text-xs text-zinc-400 pl-2 hidden sm:inline">
+              <span className="font-mono-code text-xs text-zinc-400 pl-2">
                 nasif284 / github-contributions.ts
-              </span>
-            </div>
-
-            <div className="flex items-center gap-2">
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-zinc-900 border border-zinc-700/80 text-[11px] font-mono-code text-zinc-300">
-                <span
-                  className={`w-2 h-2 rounded-full ${
-                    isLive ? 'bg-emerald-400 animate-pulse' : 'bg-brand-primary'
-                  }`}
-                />
-                <span>{isLive ? 'LIVE SYNC' : 'ACTIVE'}</span>
               </span>
             </div>
           </div>
@@ -182,14 +169,14 @@ export const GitHubActivity: React.FC = () => {
           {/* Metric KPI Cards */}
           <div className="p-6 sm:p-8 grid grid-cols-1 sm:grid-cols-3 gap-4 border-b border-zinc-800/80 bg-zinc-900/40">
             {/* Total Contributions */}
-            <div className="p-5 rounded-2xl bg-zinc-900/80 border border-zinc-800 hover:border-brand-primary/40 transition-colors">
+            <div className="p-5 rounded-2xl bg-zinc-900/80 border border-zinc-800 hover:border-emerald-500/40 transition-colors">
               <div className="flex items-center justify-between text-zinc-400 text-xs font-mono-code uppercase tracking-wider mb-2">
                 <span>Total Commits</span>
-                <GitCommit className="w-4 h-4 text-brand-primary" />
+                <GitCommit className="w-4 h-4 text-emerald-400" />
               </div>
-              <div className="font-serif-editorial text-4xl sm:text-5xl text-brand-primary font-bold">
+              <div className="font-serif-editorial text-4xl sm:text-5xl text-emerald-400 font-bold">
                 {totalCount}
-                <span className="text-2xl font-sans text-brand-primary/70 font-normal">+</span>
+                <span className="text-2xl font-sans text-emerald-400/70 font-normal">+</span>
               </div>
               <div className="mt-1 text-xs text-zinc-400 font-mono-code">
                 In the last 365 days
@@ -213,10 +200,10 @@ export const GitHubActivity: React.FC = () => {
             </div>
 
             {/* Longest Streak */}
-            <div className="p-5 rounded-2xl bg-zinc-900/80 border border-zinc-800 hover:border-brand-primary/40 transition-colors">
+            <div className="p-5 rounded-2xl bg-zinc-900/80 border border-zinc-800 hover:border-zinc-700 transition-colors">
               <div className="flex items-center justify-between text-zinc-400 text-xs font-mono-code uppercase tracking-wider mb-2">
                 <span>Best Streak</span>
-                <Activity className="w-4 h-4 text-brand-primary" />
+                <Activity className="w-4 h-4 text-zinc-400" />
               </div>
               <div className="font-serif-editorial text-4xl sm:text-5xl text-white font-bold flex items-baseline gap-2">
                 <span>{longestStreak}</span>
@@ -230,37 +217,57 @@ export const GitHubActivity: React.FC = () => {
 
           {/* Interactive Heatmap Matrix */}
           <div className="p-6 sm:p-8">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
+            <div className="flex items-center justify-between gap-2 mb-4">
               <div className="text-xs font-mono-code text-zinc-400 uppercase tracking-wider">
                 52-Week Contribution Matrix
               </div>
-              {hoveredDay ? (
-                <div className="text-xs font-mono-code text-brand-primary bg-zinc-900 px-3 py-1 rounded-full border border-zinc-700 inline-flex items-center gap-2">
-                  <span className="font-bold">{hoveredDay.count} contribution{hoveredDay.count === 1 ? '' : 's'}</span>
-                  <span className="text-zinc-400">on {hoveredDay.date}</span>
-                </div>
-              ) : (
-                <div className="text-xs font-mono-code text-zinc-500">
-                  Hover or tap a block for details
-                </div>
-              )}
+              <div className="text-xs font-mono-code text-zinc-500 hidden sm:block">
+                Hover a block for details
+              </div>
             </div>
 
-            {/* Heatmap Grid - Horizontal scrolling on small screens */}
-            <div className="overflow-x-auto pb-4 pt-1">
+            {/* Heatmap Grid with Smooth Floating Tooltip */}
+            <div ref={heatmapContainerRef} className="relative overflow-x-auto pb-4 pt-1">
+              {/* Floating Tooltip */}
+              {tooltip && (
+                <div
+                  style={{ left: `${tooltip.x}px`, top: `${tooltip.y - 10}px` }}
+                  className="pointer-events-none absolute -translate-x-1/2 -translate-y-full z-30 px-3 py-1.5 rounded-md bg-zinc-950 text-white text-[11px] font-mono-code border border-zinc-700 shadow-2xl whitespace-nowrap"
+                >
+                  <div className="flex items-center gap-1.5">
+                    <span className="font-semibold text-emerald-400">
+                      {tooltip.day.count === 0
+                        ? 'No contributions'
+                        : `${tooltip.day.count} contribution${tooltip.day.count === 1 ? '' : 's'}`}
+                    </span>
+                    <span className="text-zinc-400">on {tooltip.day.date}</span>
+                  </div>
+                  <div className="absolute top-full left-1/2 -translate-x-1/2 -mt-[1px] border-4 border-transparent border-t-zinc-950" />
+                </div>
+              )}
+
               <div className="inline-flex gap-1 min-w-[720px]">
                 {weeks.map((week, weekIdx) => (
                   <div key={weekIdx} className="flex flex-col gap-1">
                     {week.map((day) => (
                       <div
                         key={day.date}
-                        onMouseEnter={() => setHoveredDay(day)}
-                        onMouseLeave={() => setHoveredDay(null)}
-                        className={`w-3 h-3 rounded-[2px] transition-all cursor-pointer ${getCellColor(
+                        onMouseEnter={(e) => {
+                          const cellRect = e.currentTarget.getBoundingClientRect();
+                          const containerRect = heatmapContainerRef.current?.getBoundingClientRect();
+                          if (containerRect) {
+                            setTooltip({
+                              day,
+                              x: cellRect.left - containerRect.left + cellRect.width / 2,
+                              y: cellRect.top - containerRect.top,
+                            });
+                          }
+                        }}
+                        onMouseLeave={() => setTooltip(null)}
+                        className={`w-3 h-3 rounded-[2px] transition-colors cursor-pointer ${getCellColor(
                           day.level,
                           day.count
                         )}`}
-                        title={`${day.count} contributions on ${day.date}`}
                       />
                     ))}
                   </div>
@@ -268,15 +275,15 @@ export const GitHubActivity: React.FC = () => {
               </div>
             </div>
 
-            {/* Bottom Legend and CTA */}
+            {/* Classic GitHub Green Legend and CTA */}
             <div className="mt-4 pt-4 border-t border-zinc-800/80 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono-code text-zinc-400">
               <div className="flex items-center gap-2">
                 <span>Less</span>
-                <span className="w-3 h-3 rounded-[2px] bg-zinc-800/80" />
-                <span className="w-3 h-3 rounded-[2px] bg-amber-900/60 border border-amber-700/40" />
-                <span className="w-3 h-3 rounded-[2px] bg-[#ca8a04]" />
-                <span className="w-3 h-3 rounded-[2px] bg-[#facc15]" />
-                <span className="w-3 h-3 rounded-[2px] bg-[#fef08a]" />
+                <span className="w-3 h-3 rounded-[2px] bg-[#161b22] border border-[#30363d]/50" />
+                <span className="w-3 h-3 rounded-[2px] bg-[#0e4429]" />
+                <span className="w-3 h-3 rounded-[2px] bg-[#006d32]" />
+                <span className="w-3 h-3 rounded-[2px] bg-[#26a641]" />
+                <span className="w-3 h-3 rounded-[2px] bg-[#39d353]" />
                 <span>More</span>
               </div>
 
